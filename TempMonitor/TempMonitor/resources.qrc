@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icon/app.ico</file>
+        <file>icon/settings.ico</file>
+        <file>icon/printer.ico</file>
+        <file>icon/connect.png</file>
+        <file>icon/disconnect.png</file>
+    </qresource>
+</RCC>

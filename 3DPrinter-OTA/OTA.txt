@@ -1,0 +1,10 @@
+﻿OTA
++ Nạp code với chương trình Arduino
++ Nạp code với trình duyệt Web
++ Nạp code thông qua Web Server
+
+
+Bước 1
+- Nạp chương trình OTA
+Bước 2
+- Nạp chương trình blink
