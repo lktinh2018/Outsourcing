@@ -1,5 +1,6 @@
 void initRelay() {
   pinMode(RELAY_PIN, OUTPUT);
+  deactiveRelay() ;
 }
 
 void activeRelay() {
