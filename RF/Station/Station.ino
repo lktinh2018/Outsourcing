@@ -17,7 +17,7 @@ byte msgTrans[10] = "Hello";
 byte activatedRelay = false;
 
 //Delay time
-uint8_t delayTime = 10000;
+uint8_t delayTime = 1000;
 unsigned long time = 0;
 
 void setup(){ 

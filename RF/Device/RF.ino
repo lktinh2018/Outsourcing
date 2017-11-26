@@ -2,7 +2,7 @@ void initRF() {
   radio.begin();                     
   radio.setAutoAck(1);              
   radio.setDataRate(RF24_1MBPS);
-  radio.setChannel(10);
+  radio.setChannel(40);
   radio.openReadingPipe(1, pipe);     
   radio.startListening();         
 }

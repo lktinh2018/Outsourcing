@@ -4,7 +4,7 @@ void initRF() {
   radio.setRetries(1,1);             
   radio.setDataRate(RF24_1MBPS);      
   radio.setPALevel(RF24_PA_MAX);   
-  radio.setChannel(10);
+  radio.setChannel(5);
   radio.openWritingPipe(pipe);
 }
 
@@ -22,18 +22,6 @@ void loopRF() {
     if(count == 3)
       activatedRelay = false;
   }
-
-  //Led bright every 0,2s, off after 2s
-  for(int i = 1; i<=10; i++) {
-    digitalWrite(LED_PIN, HIGH);
-    delay(200);
-    digitalWrite(LED_PIN, LOW);
-    delay(200);
-  }
-  if(activatedRelay)
-    activeRelay();
-  else
-    deactiveRelay();
-  delay(10000);
+  delay(3000);
 }
 

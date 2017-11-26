@@ -3,9 +3,6 @@ void initWebServer() {
   server.on("/active", handleActive);
   server.on("/on", handleOn);
   server.on("/off", handleOff);
-//  server.on("/", handleRoot);
-//  server.on("/login", handleLogin);
-//  server.on("/user", changePassword);
   
   server.onNotFound(handleNotFound);
   //Here is the list of headers to be recorded
@@ -39,19 +36,19 @@ void handleActive() {
   relayState = !relayState;
   digitalWrite(RELAY_PIN, relayState ? HIGH : LOW); 
   Serial.println(relayState ? "ON" : "OFF");
-  String respone = relayState ? "1" : "0";
+  String respone = relayState ? "On" : "Off";
   server.send(200, "text/html", respone);
 }
 
 void handleOn() {
   digitalWrite(RELAY_PIN, HIGH); 
   Serial.println("On");
-  server.send(200, "text/html", "1");
+  server.send(200, "text/html", "On");
 }
 
 void handleOff() {
   digitalWrite(RELAY_PIN, LOW); 
   Serial.println("Off");
-  server.send(200, "text/html", "0");
+  server.send(200, "text/html", "Off");
 }
 
