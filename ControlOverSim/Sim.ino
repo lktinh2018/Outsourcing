@@ -1,6 +1,6 @@
 void initSIM() {
   Sim.begin(9600);
-  Serial.println(F("You can now send AT commands"));
+  debug(F("You can now send AT commands"));
 }
 
 void loopSIM() {
@@ -12,7 +12,7 @@ void loopSIM() {
     char c = Sim.read();
     data += c;
     if(c == '\n') {
-      Serial.print(data);
+      debug(data);
       handleData(data);
       data = "";
     }
@@ -23,12 +23,40 @@ void loopSIM() {
 void handleData(String data) {
   if(data.indexOf("+CLIP") != -1) {
     hangUp();
-    Serial.println("Co cuoc goi den: ");
-
+    debug("Phone's coming: ");
     byte startIndex = 8;
     byte endIndex   = data.indexOf("\"", 10);
     String phoneNum = data.substring(startIndex, endIndex);
-    Serial.print(phoneNum);
+    debug(phoneNum);
+    if(phoneNum == phoneNumber) {
+      activatedRelay = !activatedRelay;
+      if(activatedRelay) {
+        activeRelay();
+        sendSMS(phoneNumber, "Da kich hoat may bom");
+      } else {
+        deactiveRelay();
+        sendSMS(phoneNumber, "Da tat may bom");
+      }
+    }
+  } else if(data.indexOf("+CUSD") != -1) {
+    byte startIndex = data.indexOf("\"");
+    byte endIndex   = data.indexOf("\"", startIndex+1);
+    String ussdRespone = data.substring(startIndex+1, endIndex-1);
+    debug(ussdRespone);
+    sendSMS(phoneNumber, ussdRespone);
+  } else if(data.indexOf("+CMT") != -1) {
+    byte startIndex = data.indexOf("\"");
+    byte endIndex = data.indexOf("\"", startIndex+1);
+    String phoneNum = data.substring(startIndex+1, endIndex);
+    phoneNumber.replace("+84", "0");
+    phoneNum.replace("+84", "0");
+    if(phoneNum == phoneNumber) {
+      debug("ABCXYZ: " + data.indexOf("\n"));
+      String smsContent = data.substring(data.indexOf("\n") + 2); 
+   
+      debug("Phone Number:" + phoneNum);
+      debug("SMS Content: " +smsContent);
+    }
   }
 }
 
@@ -51,6 +79,12 @@ void sendSMS(String phoneNumber, String contentSMS) {
 }
 
 void hangUp() {
+  debug("Hang up");
   Sim.print("ATH\r\n");
+  delay(2000);
+}
+
+void ussd(String code) {
+  Sim.print("AT+CUSD=1,\"" + code + "\"\r\n");
 }
 
