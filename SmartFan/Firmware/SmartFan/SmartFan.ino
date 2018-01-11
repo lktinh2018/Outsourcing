@@ -5,13 +5,13 @@
 #include <ArduinoJson.h>
 
 //Debug 
-#define DEBUG_MODE 0
+#define DEBUG_MODE
 
 //Pin
 #define RELAY_PIN_1 12
 #define RELAY_PIN_2 14
-#define RELAY_PIN_3 16
-#define BUTTON_PIN  13
+#define RELAY_PIN_3 13
+#define BUTTON_PIN  16
 
 //Config AP
 const char* ssidAP      = "Quat Thong Minh";
